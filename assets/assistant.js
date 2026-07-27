@@ -52,9 +52,33 @@ function escapeHtml(value) {
 }
 
 function renderInlineMarkdown(value) {
-  return escapeHtml(value)
+  const links = [];
+  const withPlaceholders = String(value).replace(
+    /\[([^\]]{1,180})\]\((https?:\/\/[^\s)]+)\)/gi,
+    (match, label, url) => {
+      try {
+        const parsed = new URL(url);
+        if (!["http:", "https:"].includes(parsed.protocol)) return match;
+        const index = links.push({
+          label: escapeHtml(label),
+          url: escapeHtml(parsed.toString())
+        }) - 1;
+        return `MITRA_LINK_${index}_END`;
+      } catch {
+        return match;
+      }
+    }
+  );
+
+  return escapeHtml(withPlaceholders)
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/`(.+?)`/g, "<code>$1</code>");
+    .replace(/`(.+?)`/g, "<code>$1</code>")
+    .replace(/MITRA_LINK_(\d+)_END/g, (match, index) => {
+      const link = links[Number(index)];
+      return link
+        ? `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`
+        : match;
+    });
 }
 
 function stripServiceBlocks(value) {
@@ -129,6 +153,7 @@ function markdownToAssistantHtml(markdown) {
   const html = [];
   let currentSection = null;
   let listType = null;
+  let orderedCounter = 0;
 
   function closeList() {
     if (listType) {
@@ -143,6 +168,7 @@ function markdownToAssistantHtml(markdown) {
       html.push("</section>");
       currentSection = null;
     }
+    orderedCounter = 0;
   }
 
   function appendToLastListItem(content) {
@@ -186,9 +212,10 @@ function markdownToAssistantHtml(markdown) {
     if (ordered) {
       if (listType !== "ol") {
         closeList();
-        html.push("<ol>");
+        html.push(`<ol start="${orderedCounter + 1}">`);
         listType = "ol";
       }
+      orderedCounter += 1;
       html.push(`<li>${renderInlineMarkdown(ordered[2])}</li>`);
       continue;
     }
@@ -222,6 +249,53 @@ function markdownToAssistantHtml(markdown) {
   return html.join("");
 }
 
+function renderVerificationStatus(payload) {
+  const mode = payload?.meta?.verification_mode;
+  const sourceCount = Number(payload?.meta?.source_count || 0);
+  if (mode === "web" && sourceCount > 0) {
+    return `<div class="assistant-verification">Проверка выполнена с поиском по нормативным источникам. Использованных источников: ${sourceCount}.</div>`;
+  }
+  return `<div class="assistant-verification manual">Автоматическая проверка по внешним источникам была недоступна. Точные статьи, пункты и статус документов необходимо сверить вручную.</div>`;
+}
+
+function renderVerificationSources(sources = []) {
+  const validSources = sources.filter((source) => {
+    try {
+      return ["http:", "https:"].includes(new URL(source.url).protocol);
+    } catch {
+      return false;
+    }
+  }).slice(0, 12);
+
+  if (!validSources.length) return "";
+  const items = validSources.map((source) => {
+    const label = escapeHtml(source.title || new URL(source.url).hostname);
+    const url = escapeHtml(new URL(source.url).toString());
+    return `<li><a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a></li>`;
+  }).join("");
+
+  return `
+    <details class="assistant-history assistant-sources">
+      <summary>Источники, использованные при проверке (${validSources.length})</summary>
+      <div class="assistant-history-content"><ul>${items}</ul></div>
+    </details>
+  `;
+}
+
+function renderAssistantHistory(history = []) {
+  if (!history.length) return "";
+  const items = history.slice(-3).reverse().map((item, index) => `
+    <details class="assistant-history">
+      <summary>Предыдущая версия ответа${index === 0 ? "" : ` (${index + 1})`}</summary>
+      <div class="assistant-history-content">
+        ${item.refinement ? `<p class="assistant-refinement-note">Уточнение: ${escapeHtml(item.refinement)}</p>` : ""}
+        <div class="assistant-answer">${markdownToAssistantHtml(item.answer)}</div>
+      </div>
+    </details>
+  `).join("");
+  return items;
+}
+
 function renderAssistantAnswer(payload, options = {}) {
   const answerHtml = markdownToAssistantHtml(payload.final_answer || "Ответ пуст.");
   const refinementNote = options.refinement
@@ -231,12 +305,12 @@ function renderAssistantAnswer(payload, options = {}) {
     <form class="assistant-refine" id="assistantRefineForm">
       <label>
         <span>Уточнить алгоритм</span>
-        <textarea name="refinement" rows="4" required placeholder="Например: дефект выявлен после бетонирования, акта скрытых работ пока нет, подрядчик просит разрешить продолжение работ. Уточните порядок действий с учетом этого факта."></textarea>
+        <textarea name="refinement" rows="4" minlength="10" required placeholder="Например: дефект выявлен после бетонирования, акта скрытых работ пока нет, подрядчик просит разрешить продолжение работ. Уточните порядок действий с учетом этого факта."></textarea>
       </label>
       <button class="button ghost" type="submit">Уточнить ответ</button>
     </form>
   `;
-  return `${refinementNote}<div class="assistant-answer">${answerHtml}</div>${refineHtml}`;
+  return `${renderVerificationStatus(payload)}${refinementNote}<div class="assistant-answer">${answerHtml}</div>${renderVerificationSources(payload.sources)}${renderAssistantHistory(options.history)}${refineHtml}`;
 }
 
 if (assistantForm) {
@@ -279,14 +353,15 @@ if (assistantForm) {
         scenario,
         message,
         answer: payload.final_answer || "",
-        conversationId: payload.conversation_id || ""
+        conversationId: payload.conversation_id || "",
+        history: []
       };
       trackAssistantGoal("assistant_answer", { scenario });
       setAssistantResult(renderAssistantAnswer(payload));
     } catch (error) {
       trackAssistantGoal("assistant_error", { scenario });
       setAssistantResult(
-        `<p class="assistant-error">Помощник пока не ответил.</p><p>${escapeHtml(error.message)}</p><p class="assistant-placeholder">Если сайт еще работает в static-режиме Amvera, нужно переключить проект на Node.js и добавить API-ключи в переменные окружения.</p>`,
+        `<p class="assistant-error">Помощник пока не ответил.</p><p>${escapeHtml(error.message)}</p>`,
         "assistant-error"
       );
     } finally {
@@ -304,9 +379,9 @@ if (assistantResult) {
     const refinement = String(new FormData(refineForm).get("refinement") || "").trim();
     if (!refinement || !latestAssistantState) return;
 
+    const previousHtml = assistantResult.innerHTML;
     const button = refineForm.querySelector("button");
     setButtonBusy(button, true, "Уточняю алгоритм...", "Уточнить ответ");
-    const previousHtml = assistantResult.innerHTML;
     setAssistantResult(renderAssistantLoading("refinement"), "assistant-result-loading");
     trackAssistantGoal("assistant_refinement_start", {
       scenario: latestAssistantState.scenario
@@ -332,22 +407,32 @@ if (assistantResult) {
         throw new Error(payload.error || "Сервер помощника пока не подключен.");
       }
 
+      const previousState = latestAssistantState;
       latestAssistantState = {
         ...latestAssistantState,
         answer: payload.final_answer || "",
         conversationId: payload.conversation_id || latestAssistantState.conversationId,
-        last_refinement: refinement
+        last_refinement: refinement,
+        history: [
+          ...(latestAssistantState.history || []),
+          { answer: previousState.answer, refinement }
+        ].slice(-3)
       };
       trackAssistantGoal("assistant_refinement_answer", {
         scenario: latestAssistantState.scenario
       });
-      setAssistantResult(renderAssistantAnswer(payload, { refinement }));
+      setAssistantResult(renderAssistantAnswer(payload, {
+        refinement,
+        history: latestAssistantState.history
+      }));
     } catch (error) {
       trackAssistantGoal("assistant_refinement_error", {
         scenario: latestAssistantState.scenario
       });
       assistantResult.innerHTML = previousHtml;
       const restoredRefineForm = assistantResult.querySelector("#assistantRefineForm");
+      const restoredButton = restoredRefineForm?.querySelector("button");
+      setButtonBusy(restoredButton, false, "Уточняю алгоритм...", "Уточнить ответ");
       const note = document.createElement("p");
       note.className = "assistant-error";
       note.textContent = `Не удалось уточнить ответ: ${error.message}`;

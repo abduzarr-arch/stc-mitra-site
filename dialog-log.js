@@ -16,7 +16,9 @@ function escapeHtml(value) {
 }
 
 function csvCell(value) {
-  return `"${String(value ?? "").replaceAll('"', '""')}"`;
+  let text = String(value ?? "");
+  if (/^[\s]*[=+\-@]/.test(text)) text = `'${text}`;
+  return `"${text.replaceAll('"', '""')}"`;
 }
 
 function withinRetention(timestamp) {
@@ -89,19 +91,25 @@ export async function readDialogEntries() {
 
 export function isAdminAuthorized(req) {
   const expected = String(process.env.ADMIN_LOG_TOKEN || "");
+  const expectedUser = String(process.env.ADMIN_LOG_USER || "admin");
   if (!expected) return false;
 
   const header = String(req.headers.authorization || "");
   if (!header.startsWith("Basic ")) return false;
 
+  let username = "";
   let password = "";
   try {
     const decoded = Buffer.from(header.slice(6), "base64").toString("utf8");
-    password = decoded.slice(decoded.indexOf(":") + 1);
+    const separatorIndex = decoded.indexOf(":");
+    if (separatorIndex < 0) return false;
+    username = decoded.slice(0, separatorIndex);
+    password = decoded.slice(separatorIndex + 1);
   } catch {
     return false;
   }
 
+  if (username !== expectedUser) return false;
   const actualBuffer = Buffer.from(password);
   const expectedBuffer = Buffer.from(expected);
   return actualBuffer.length === expectedBuffer.length &&
@@ -137,6 +145,7 @@ export function renderDialogsPage(entries) {
           <summary>Ответ помощника</summary>
           <pre>${escapeHtml(item.answer)}</pre>
         </details>
+        <p class="meta">Проверка: ${item.verification_mode === "web" ? "веб-поиск по источникам" : "только модель, нужна ручная сверка"}${Array.isArray(item.sources) ? ` · источников: ${item.sources.length}` : ""}</p>
       </section>
     `).join("");
 
@@ -167,7 +176,7 @@ export function renderDialogsPage(entries) {
     .dialog{margin-bottom:18px;border:1px solid #d4dde2;background:#fff}.dialog>header{display:flex;justify-content:space-between;gap:16px;padding:16px 18px;background:#eaf0f3}
     .dialog>header div{display:grid;gap:2px}.dialog code{font-size:12px;color:#687783}.exchange{padding:18px;border-top:1px solid #e1e7ea}.exchange h3{margin:0 0 12px;font-size:18px}
     .block{margin:10px 0}.block p{margin:5px 0;white-space:pre-wrap}details{margin-top:12px}summary{cursor:pointer;font-weight:800;color:#d65a27}
-    pre{max-height:520px;overflow:auto;white-space:pre-wrap;margin:12px 0 0;padding:16px;background:#f7f9fa;border:1px solid #dce4e8;font:14px/1.55 Arial,sans-serif}
+    pre{max-height:520px;overflow:auto;white-space:pre-wrap;margin:12px 0 0;padding:16px;background:#f7f9fa;border:1px solid #dce4e8;font:14px/1.55 Arial,sans-serif}.meta{margin:10px 0 0;color:#687783;font-size:12px}
     .empty{padding:32px;border:1px solid #d4dde2;background:#fff}@media(max-width:700px){.top,.dialog>header{align-items:flex-start;flex-direction:column}.actions{flex-wrap:wrap}}
   </style>
 </head>
@@ -193,7 +202,9 @@ export function renderDialogsCsv(entries) {
     "refinement",
     "answer",
     "draft_provider",
-    "verifier_provider"
+    "verifier_provider",
+    "verification_mode",
+    "source_count"
   ];
   const rows = entries.map((entry) => [
     entry.timestamp,
@@ -204,7 +215,9 @@ export function renderDialogsCsv(entries) {
     entry.refinement,
     entry.answer,
     entry.draft_provider,
-    entry.verifier_provider
+    entry.verifier_provider,
+    entry.verification_mode,
+    Array.isArray(entry.sources) ? entry.sources.length : 0
   ].map(csvCell).join(","));
   return `\uFEFF${header.map(csvCell).join(",")}\n${rows.join("\n")}`;
 }

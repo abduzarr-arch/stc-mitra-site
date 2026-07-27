@@ -88,6 +88,10 @@ img {
   font-size: 15px;
 }
 
+.nav-toggle {
+  display: none;
+}
+
 .nav a:hover,
 .header-contact a:hover,
 .footer a:hover {
@@ -494,6 +498,31 @@ h3 {
   max-width: 840px;
 }
 
+.assistant-intro {
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+.assistant-intro .breadcrumbs {
+  margin-bottom: 16px;
+}
+
+.assistant-intro h1 {
+  max-width: 1040px;
+  margin-bottom: 12px;
+  font-size: clamp(34px, 4vw, 54px);
+}
+
+.assistant-intro .lead {
+  max-width: 980px;
+  margin-bottom: 0;
+  font-size: 19px;
+}
+
+.assistant-section-band {
+  padding-top: 40px;
+}
+
 .content-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.78fr) minmax(320px, 0.42fr);
@@ -609,6 +638,11 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.assistant-form {
+  position: sticky;
+  top: 98px;
+}
+
 .assistant-form label,
 .assistant-form span {
   display: grid;
@@ -661,8 +695,6 @@ h3 {
 
 .assistant-result {
   align-content: start;
-  max-height: 780px;
-  overflow: auto;
   line-height: 1.58;
 }
 
@@ -714,6 +746,62 @@ h3 {
   background: #eef3f4;
   color: #223641;
   font-size: 0.94em;
+}
+
+.assistant-section a {
+  color: var(--steel);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(45, 86, 107, 0.35);
+  text-underline-offset: 3px;
+}
+
+.assistant-verification {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 13px 15px;
+  border-left: 4px solid var(--green);
+  background: #edf4f0;
+  color: #2f4f40;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.assistant-verification.manual {
+  border-left-color: #aa7622;
+  background: #fbf5e9;
+  color: #6d4b17;
+}
+
+.assistant-history {
+  border: 1px solid #d9e1e6;
+  background: #fff;
+}
+
+.assistant-history summary {
+  cursor: pointer;
+  padding: 13px 15px;
+  color: var(--steel);
+  font-weight: 800;
+}
+
+.assistant-history-content {
+  padding: 0 15px 15px;
+}
+
+.assistant-sources ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.assistant-sources a {
+  color: var(--steel);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .assistant-refine {
@@ -882,6 +970,10 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .assistant-form {
+    position: static;
+  }
+
   .aside-card {
     position: static;
   }
@@ -889,16 +981,101 @@ h3 {
 
 @media (max-width: 720px) {
   .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 12px 14px;
     min-height: auto;
+    padding: 10px 18px;
   }
 
   .brand {
     min-width: 0;
   }
 
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand small {
+    font-size: 11px;
+  }
+
+  .site-header.has-nav-toggle .nav-toggle {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    align-self: center;
+    border: 1px solid var(--line);
+    color: var(--deep);
+    background: #fff;
+    font: 700 25px/1 Arial, sans-serif;
+  }
+
+  .site-header.has-nav-toggle .nav {
+    display: none;
+    grid-column: 1 / -1;
+    order: initial;
+    width: auto;
+    overflow: visible;
+    padding: 4px 0 10px;
+  }
+
+  .site-header.has-nav-toggle.nav-open .nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .site-header.has-nav-toggle .nav a {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
   .header-contact {
-    width: 100%;
-    justify-items: start;
+    grid-column: 1 / -1;
+    display: flex;
+    width: auto;
+    gap: 14px;
+    justify-content: space-between;
+    justify-items: initial;
+    padding-top: 2px;
+  }
+
+  .header-email,
+  .header-phone {
+    font-size: 12px;
+  }
+
+  .assistant-intro {
+    padding-top: 24px;
+    padding-bottom: 26px;
+  }
+
+  .assistant-intro h1 {
+    font-size: 34px;
+  }
+
+  .assistant-intro .lead {
+    font-size: 17px;
+  }
+
+  .assistant-section-band {
+    padding-top: 30px;
+  }
+
+  .assistant-form,
+  .assistant-result {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .assistant-section {
+    padding: 15px;
   }
 
   .metrics,
