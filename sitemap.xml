@@ -21,6 +21,10 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://ntc-mitra.ru/ai-visual-inspection.html</loc>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://ntc-mitra.ru/legal-context/stop-works.html</loc>
     <priority>0.75</priority>
   </url>
