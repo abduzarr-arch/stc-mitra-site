@@ -23,4 +23,4 @@ Allow: /
 User-agent: Claude-SearchBot
 Allow: /
 
-Sitemap: https://ntc-mitra.ru/sitemap.xml
+Sitemap: https://stc-mitra.com/sitemap.xml

@@ -909,7 +909,7 @@ async function serveStatic(req, res) {
   if (ext === ".html") {
     let html = content.toString("utf8");
     const canonicalPath = pathname === "/index.html" ? "/" : pathname;
-    const canonicalUrl = `https://ntc-mitra.ru${canonicalPath}`;
+    const canonicalUrl = `https://stc-mitra.com${canonicalPath}`;
     if (!html.includes('rel="canonical"')) {
       const discoverabilityTags = [
         `<link rel="canonical" href="${canonicalUrl}">`,
