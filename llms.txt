@@ -25,12 +25,14 @@ STC Mitra is expanding its international delivery base into Uzbekistan. Work can
 
 ## Calculation capabilities
 
-- Global and local finite-element models.
-- Geometric and material nonlinearity.
-- Construction-stage and time-dependent analysis.
+- Nonlinear structural analysis with geometric and material nonlinearity.
+- Global-to-local finite-element modelling of connections, anchorage and damaged zones.
+- Local checks of plates, welds, bolts, anchors, bearing and contact behaviour.
+- Thermal stress states, restraint effects and temperature gradients.
+- Construction-stage, stiffness-evolution and time-dependent analysis.
 - Seismic and dynamic actions.
 - Progressive collapse and robustness.
-- Temperature and fire scenarios.
+- Fire scenarios.
 - Precast systems and connection flexibility.
 - Soil-foundation-superstructure interaction.
 
@@ -50,4 +52,4 @@ STC Mitra is expanding its international delivery base into Uzbekistan. Work can
 
 - Director: Abduzarr Zhalnin
 - Email: info@stc-mitra.com
-- Phone: +7 926 863-77-38
+- Phone: +998 92 043 83 07
