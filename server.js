@@ -914,7 +914,7 @@ async function serveStatic(req, res) {
       const discoverabilityTags = [
         `<link rel="canonical" href="${canonicalUrl}">`,
         '<meta property="og:type" content="website">',
-        '<meta property="og:site_name" content="НТЦ Митра">',
+        '<meta property="og:site_name" content="STC Mitra">',
         `<meta property="og:url" content="${canonicalUrl}">`
       ].join("\n    ");
       html = html.replace("</head>", `    ${discoverabilityTags}\n  </head>`);

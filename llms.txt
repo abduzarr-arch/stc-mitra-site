@@ -1,58 +1,53 @@
-# ООО «НТЦ Митра»
+# STC Mitra LLC
 
-Официальный сайт: https://stc-mitra.com
+Official website: https://stc-mitra.com/
 
-НТЦ Митра — российская инженерная компания по конструктивным решениям и геотехнике. Команда выполняет разработку КР от ОПР до ПД и РД, поверочные и специальные расчеты несущих конструкций, обследования, аудит проектной и рабочей документации, проекты усиления и сопровождение дефектов СМР/ПИР.
+STC Mitra is a structural engineering company providing structural design, independent verification, building surveys, design audit, strengthening, geotechnical analysis and construction-stage support.
 
-Команда сформировалась в 2019–2024 годах как внутренний расчетный центр и техническая дирекция ГК ПИК. ООО «НТЦ Митра» создано в декабре 2024 года.
+The team developed between 2019 and 2024 as the in-house calculation centre and technical directorate of PIK Group. STC Mitra LLC was established as an independent company in December 2024.
 
-Практическая база включает более 1700 решенных дефектов и сложных технических задач. По договорному реестру за январь 2025 — июнь 2026 года: 67 содержательных договорных позиций, 22 заказчика, 85% портфеля от повторных обращений, более 130 млн рублей совокупного объема положительных договорных позиций.
+The practical knowledge base includes more than 1,700 resolved construction defects and complex engineering issues. The independent portfolio for January 2025–June 2026 includes 67 contracted work packages for 22 clients; 12 clients returned with new assignments and 85% of the portfolio came from repeat engagements.
 
-## Основные направления
+## Markets and standards
 
-- Разработка КР, КЖ и КМ на стадиях ОПР, ПД и РД.
-- Поверочные и специальные расчеты несущих конструкций.
-- Обследование зданий и сооружений.
-- Аудит проектной и рабочей документации по разделу КР.
-- Сопровождение СМР при дефектах, отклонениях и проектных ошибках.
-- Разработка технических решений и проектов усиления.
-- Геотехнические расчеты оснований, фундаментов, свай, осадок и кренов.
-- НИОКР, испытания и верификация расчетных моделей.
+STC Mitra is expanding its international delivery base into Uzbekistan. Work can be performed under the agreed ACI, EN/Eurocode or SP framework, subject to project requirements and local approval rules.
 
-## Расчетная специализация
+## Core services
 
-- Глобальные и локальные модели.
-- Физическая и геометрическая нелинейность.
-- Стадийность возведения, демонтажа и усиления.
-- Сейсмика и динамические воздействия.
-- Прогрессирующее обрушение.
-- Температурные воздействия и пожар.
-- Сборные системы и фактическая податливость узлов.
-- Совместная работа здания, фундамента и основания.
+- Structural design for reinforced-concrete and steel structures.
+- Independent verification and special structural calculations.
+- Surveys and condition assessment of buildings and structures.
+- Audit of structural design and construction documentation.
+- Construction-stage support for defects, deviations and design errors.
+- Repair and strengthening design.
+- Foundation, pile, settlement and soil-structure interaction analysis.
+- R&D, testing and verification of calculation models.
 
-## Важные страницы
+## Calculation capabilities
 
-- Главная: https://stc-mitra.com/
-- Сведения о компании: https://stc-mitra.com/about-ai.html
-- Проблемы на стройке: https://stc-mitra.com/problems.html
-- Проемы в плитах: https://stc-mitra.com/opening-in-slab.html
-- Повреждение арматуры: https://stc-mitra.com/damaged-rebar.html
-- Недобор прочности бетона: https://stc-mitra.com/low-concrete-strength.html
-- Трещины в конструкциях: https://stc-mitra.com/cracks-in-structures.html
-- Отклонения геометрии: https://stc-mitra.com/geometry-deviations.html
-- Сваи, осадки и крены: https://stc-mitra.com/piles-settlement-tilt.html
-- Техническое обоснование для ГИП и РП: https://stc-mitra.com/legal-technical-context.html
-- Приостановка работ: https://stc-mitra.com/legal-context/stop-works.html
-- Исполнительная документация: https://stc-mitra.com/legal-context/executive-documentation.html
-- Отклонения от проекта: https://stc-mitra.com/legal-context/deviations-from-design.html
-- Дефекты СМР и ответственность: https://stc-mitra.com/legal-context/defects-and-liability.html
-- Привлечение независимых инженеров: https://stc-mitra.com/legal-context/how-to-involve-engineers.html
-- Нормативный помощник ГИП/РП: https://stc-mitra.com/ai-normative-assistant.html
-- Предварительный визуальный осмотр: https://stc-mitra.com/ai-visual-inspection.html
+- Global and local finite-element models.
+- Geometric and material nonlinearity.
+- Construction-stage and time-dependent analysis.
+- Seismic and dynamic actions.
+- Progressive collapse and robustness.
+- Temperature and fire scenarios.
+- Precast systems and connection flexibility.
+- Soil-foundation-superstructure interaction.
 
-## Контакты
+## Important pages
 
-- Директор: Абдузарр Жалнин
-- Email: i@rsa-project.ru
-- Телефон: +7 926 863-77-38
-- Москва, Россия
+- Main website: https://stc-mitra.com/
+- Construction-stage issues: https://stc-mitra.com/problems.html
+- Unplanned slab openings: https://stc-mitra.com/opening-in-slab.html
+- Damaged reinforcement: https://stc-mitra.com/damaged-rebar.html
+- Low concrete strength: https://stc-mitra.com/low-concrete-strength.html
+- Structural cracking: https://stc-mitra.com/cracks-in-structures.html
+- Geometry deviations: https://stc-mitra.com/geometry-deviations.html
+- Piles, settlement and tilt: https://stc-mitra.com/piles-settlement-tilt.html
+- Technical governance: https://stc-mitra.com/legal-technical-context.html
+
+## Contact
+
+- Director: Abduzarr Zhalnin
+- Email: info@stc-mitra.com
+- Phone: +7 926 863-77-38

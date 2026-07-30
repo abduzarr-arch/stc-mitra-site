@@ -17,6 +17,6 @@ if (form) {
       ].join("\n")
     );
 
-    window.location.href = `mailto:i@rsa-project.ru?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:info@stc-mitra.com?subject=${subject}&body=${body}`;
   });
 }
