@@ -2390,14 +2390,15 @@ h3 {
 }
 
 .experience-card-pavlova {
-  grid-column: 1 / -1;
-  grid-template-columns: minmax(0, 1.8fr) minmax(290px, 0.7fr);
+  grid-column: span 2;
 }
 
 .experience-card-pavlova .experience-copy {
-  display: grid;
-  align-content: center;
-  padding: 28px;
+  padding: 18px;
+}
+
+.experience-card-pavlova + .experience-card {
+  align-self: start;
 }
 
 .experience-media {
@@ -2416,9 +2417,7 @@ h3 {
 .experience-media-collage {
   grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
   grid-template-rows: repeat(2, minmax(0, 1fr));
-  min-height: 440px;
-  border-right: 1px solid var(--line);
-  border-bottom: 0;
+  min-height: 320px;
 }
 
 .experience-media figure {
@@ -2515,13 +2514,11 @@ h3 {
   }
 
   .experience-card-pavlova {
-    grid-template-columns: 1fr;
+    grid-column: span 2;
   }
 
   .experience-media-collage {
-    min-height: 360px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+    min-height: 320px;
   }
 }
 
