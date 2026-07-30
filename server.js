@@ -3,6 +3,7 @@ import { readFile, stat } from "node:fs/promises";
 import { createHash, randomBytes } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import nodemailer from "nodemailer";
 import {
   appendDialogEntry,
   createConversationId,
@@ -23,6 +24,8 @@ const MAX_VISION_IMAGE_BYTES = 2_500_000;
 const PROVIDER_TIMEOUT_MS = Number(process.env.ASSISTANT_TIMEOUT_MS || 75_000);
 const RATE_LIMIT_WINDOW_MS = Number(process.env.ASSISTANT_RATE_WINDOW_MS || 15 * 60 * 1000);
 const RATE_LIMIT_MAX = Number(process.env.ASSISTANT_RATE_LIMIT || 8);
+const ENQUIRY_RATE_WINDOW_MS = Number(process.env.ENQUIRY_RATE_WINDOW_MS || 15 * 60 * 1000);
+const ENQUIRY_RATE_LIMIT = Number(process.env.ENQUIRY_RATE_LIMIT || 4);
 const MAX_CONCURRENT_REQUESTS = Number(process.env.ASSISTANT_MAX_CONCURRENT || 4);
 const SAFETY_IDENTIFIER_SALT = process.env.SAFETY_IDENTIFIER_SALT || randomBytes(32).toString("hex");
 const VERIFICATION_SOURCE_DOMAINS = [
@@ -46,7 +49,9 @@ const SCENARIOS = {
   foundation_geotech: "Фундаменты, сваи, осадки или крены"
 };
 const requestBuckets = new Map();
+const enquiryBuckets = new Map();
 let activeAssistantRequests = 0;
+let enquiryTransporter;
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -137,6 +142,151 @@ function checkRateLimit(req) {
     }
   }
   return true;
+}
+
+function checkEnquiryRateLimit(req) {
+  const now = Date.now();
+  const key = getClientKey(req);
+  const recent = (enquiryBuckets.get(key) || [])
+    .filter((timestamp) => now - timestamp < ENQUIRY_RATE_WINDOW_MS);
+
+  if (recent.length >= ENQUIRY_RATE_LIMIT) {
+    enquiryBuckets.set(key, recent);
+    return false;
+  }
+
+  recent.push(now);
+  enquiryBuckets.set(key, recent);
+
+  if (enquiryBuckets.size > 1000) {
+    for (const [bucketKey, timestamps] of enquiryBuckets) {
+      if (!timestamps.some((timestamp) => now - timestamp < ENQUIRY_RATE_WINDOW_MS)) {
+        enquiryBuckets.delete(bucketKey);
+      }
+    }
+  }
+  return true;
+}
+
+function validateEnquiryPayload(payload) {
+  const data = {
+    name: cleanUserInput(payload?.name, 120),
+    company: cleanUserInput(payload?.company, 160),
+    email: cleanUserInput(payload?.email, 254).toLowerCase(),
+    phone: cleanUserInput(payload?.phone, 80),
+    project: cleanUserInput(payload?.project, 200),
+    message: cleanUserInput(payload?.message, 6000),
+    website: cleanUserInput(payload?.website, 200)
+  };
+  const errors = {};
+
+  if (!data.name) errors.name = "Name is required.";
+  if (!data.email) {
+    errors.email = "Email is required.";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(data.email)) {
+    errors.email = "Enter a valid email address.";
+  }
+  if (!data.message) errors.message = "Describe the structure, calculation task or deviation.";
+
+  return { data, errors };
+}
+
+function getEnquiryTransporter() {
+  if (enquiryTransporter) return enquiryTransporter;
+
+  const host = cleanUserInput(process.env.SMTP_HOST, 300);
+  const from = cleanUserInput(process.env.SMTP_FROM, 320);
+  if (!host || !from) return null;
+
+  const user = cleanUserInput(process.env.SMTP_USER, 320);
+  const pass = String(process.env.SMTP_PASS || "");
+  const port = Number(process.env.SMTP_PORT || 587);
+  const secure = String(process.env.SMTP_SECURE || "").toLowerCase() === "true" || port === 465;
+
+  enquiryTransporter = nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    auth: user && pass ? { user, pass } : undefined,
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 20_000,
+    disableFileAccess: true,
+    disableUrlAccess: true
+  });
+  return enquiryTransporter;
+}
+
+async function handleEnquiry(req, res) {
+  let payload;
+  try {
+    payload = await readJsonBody(req, 12_000, "The enquiry is too large.");
+  } catch (error) {
+    return sendJson(res, error?.statusCode || 400, {
+      error: error?.statusCode === 413 ? error.message : "The enquiry has an invalid format."
+    });
+  }
+
+  const { data, errors } = validateEnquiryPayload(payload);
+
+  if (data.website) {
+    return sendJson(res, 200, { ok: true });
+  }
+  if (Object.keys(errors).length) {
+    return sendJson(res, 422, {
+      error: "Please check the required fields.",
+      fields: errors
+    });
+  }
+  if (!checkEnquiryRateLimit(req)) {
+    return sendJson(res, 429, {
+      error: "Too many enquiries have been submitted from this connection. Please try again later."
+    });
+  }
+
+  const transporter = getEnquiryTransporter();
+  const from = cleanUserInput(process.env.SMTP_FROM, 320);
+  const recipient = cleanUserInput(process.env.ENQUIRY_TO || "info@stc-mitra.com", 320);
+  if (!transporter || !from || !recipient) {
+    return sendJson(res, 503, {
+      error: "The enquiry service is not configured. Please use the email or telephone contact."
+    });
+  }
+
+  const subjectDetail = data.project || "Structural calculation enquiry";
+  const text = [
+    "New enquiry from stc-mitra.com",
+    "",
+    `Name: ${data.name}`,
+    `Company: ${data.company || "Not provided"}`,
+    `Email: ${data.email}`,
+    `Phone: ${data.phone || "Not provided"}`,
+    `Project or structure: ${data.project || "Not provided"}`,
+    "",
+    "Structure, calculation task or deviation:",
+    data.message
+  ].join("\n");
+
+  try {
+    await transporter.sendMail({
+      from,
+      to: recipient,
+      replyTo: data.email,
+      subject: `[stc-mitra.com] ${subjectDetail}`,
+      text
+    });
+    return sendJson(res, 200, { ok: true });
+  } catch (error) {
+    console.error("Enquiry delivery failed:", {
+      name: error?.name,
+      code: error?.code,
+      command: error?.command,
+      responseCode: error?.responseCode
+    });
+    return sendJson(res, 502, {
+      error: "The enquiry could not be delivered."
+    });
+  }
 }
 
 function sanitizeAssistantAnswer(value) {
@@ -923,7 +1073,7 @@ async function serveStatic(req, res) {
       html = html.replace("</head>", `  ${analyticsHead}\n  </head>`);
       html = html.replace("<body>", `<body>\n    ${analyticsFallback}`);
     }
-    if (!html.includes("/assets/site.js")) {
+    if (!/<script[^>]+src=["']\/?assets\/site\.js(?:\?[^"']*)?["'][^>]*>/i.test(html)) {
       html = html.replace("</body>", `  ${siteScript}\n  </body>`);
     }
     content = Buffer.from(html, "utf8");
@@ -940,6 +1090,11 @@ async function serveStatic(req, res) {
 
 async function handleRequest(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
+
+  if (req.method === "POST" && url.pathname === "/api/enquiries") {
+    await handleEnquiry(req, res);
+    return;
+  }
 
   if (req.method === "POST" && url.pathname === "/api/normative-assistant") {
     await handleAssistant(req, res);

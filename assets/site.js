@@ -3,49 +3,113 @@ const siteNav = siteHeader?.querySelector(".nav");
 
 if (siteHeader && siteNav) {
   const menuButton = document.createElement("button");
+  const menuIcon = document.createElement("span");
+
   menuButton.className = "nav-toggle";
   menuButton.type = "button";
   menuButton.setAttribute("aria-expanded", "false");
   menuButton.setAttribute("aria-controls", "site-navigation");
   menuButton.setAttribute("aria-label", "Open menu");
-  menuButton.innerHTML = '<span aria-hidden="true">☰</span>';
+  menuIcon.setAttribute("aria-hidden", "true");
+  menuIcon.textContent = "\u2630";
+  menuButton.append(menuIcon);
 
   siteNav.id ||= "site-navigation";
   siteHeader.classList.add("has-nav-toggle");
   siteHeader.insertBefore(menuButton, siteNav);
 
-  menuButton.addEventListener("click", () => {
-    const isOpen = siteHeader.classList.toggle("nav-open");
+  const setMenuState = (isOpen, returnFocus = false) => {
+    siteHeader.classList.toggle("nav-open", isOpen);
     menuButton.setAttribute("aria-expanded", String(isOpen));
     menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-    menuButton.querySelector("span").textContent = isOpen ? "×" : "☰";
+    menuIcon.textContent = isOpen ? "\u00d7" : "\u2630";
+    if (!isOpen && returnFocus) menuButton.focus();
+  };
+
+  menuButton.addEventListener("click", () => {
+    setMenuState(!siteHeader.classList.contains("nav-open"));
   });
 
   siteNav.addEventListener("click", (event) => {
     if (!event.target.closest("a")) return;
-    siteHeader.classList.remove("nav-open");
-    menuButton.setAttribute("aria-expanded", "false");
-    menuButton.setAttribute("aria-label", "Open menu");
-    menuButton.querySelector("span").textContent = "☰";
+    setMenuState(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !siteHeader.classList.contains("nav-open")) return;
+    setMenuState(false, true);
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900 && siteHeader.classList.contains("nav-open")) {
+      setMenuState(false);
+    }
   });
 }
 
 const requestForm = document.querySelector("#requestForm");
 
 if (requestForm) {
-  requestForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = new FormData(requestForm);
-    const subject = encodeURIComponent("Project enquiry from stc-mitra.com");
-    const body = encodeURIComponent([
-      `Name: ${data.get("name") || ""}`,
-      `Company: ${data.get("company") || ""}`,
-      `Contact: ${data.get("contact") || ""}`,
-      "",
-      "Project / engineering issue:",
-      data.get("message") || ""
-    ].join("\n"));
+  const submitButton = requestForm.querySelector('button[type="submit"]');
+  const formStatus = requestForm.querySelector("#formStatus");
+  const defaultButtonText = submitButton?.textContent || "Send technical enquiry";
+  const successMessage = "Thank you. Your enquiry has been sent. We will review the available information and contact you regarding the required inputs and calculation scope.";
+  const errorMessage = "The enquiry could not be sent. Please try again or contact us at info@stc-mitra.com.";
+  const validationMessage = "Please check the required fields and enter a valid email address.";
 
-    window.location.href = `mailto:info@stc-mitra.com?subject=${subject}&body=${body}`;
+  const setFormStatus = (message, state = "") => {
+    if (!formStatus) return;
+    formStatus.textContent = message;
+    if (state) formStatus.dataset.state = state;
+    else delete formStatus.dataset.state;
+  };
+
+  requestForm.addEventListener("invalid", () => {
+    setFormStatus(validationMessage, "error");
+  }, true);
+
+  requestForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!requestForm.checkValidity()) {
+      setFormStatus(validationMessage, "error");
+      requestForm.reportValidity();
+      return;
+    }
+    if (!submitButton || submitButton.disabled) return;
+
+    const payload = Object.fromEntries(new FormData(requestForm).entries());
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting\u2026";
+    requestForm.setAttribute("aria-busy", "true");
+    setFormStatus("Sending your enquiry\u2026");
+
+    try {
+      const response = await fetch(requestForm.action, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        if (response.status === 400 || response.status === 422) {
+          setFormStatus(validationMessage, "error");
+          return;
+        }
+        throw new Error(`Enquiry endpoint returned ${response.status}`);
+      }
+
+      requestForm.reset();
+      setFormStatus(successMessage, "success");
+    } catch {
+      setFormStatus(errorMessage, "error");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = defaultButtonText;
+      requestForm.removeAttribute("aria-busy");
+    }
   });
 }
