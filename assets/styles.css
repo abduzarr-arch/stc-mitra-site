@@ -2393,7 +2393,7 @@ h3 {
   grid-column: span 2;
 }
 
-.experience-card-anchorage {
+.experience-card-validation {
   grid-column: span 2;
 }
 
@@ -2434,6 +2434,13 @@ h3 {
   border: 1px solid var(--line);
 }
 
+.experience-media-validation {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(calc(100% - 36px), 1120px);
+  margin: 18px auto 0;
+  border: 1px solid var(--line);
+}
+
 .experience-media figure {
   position: relative;
   display: grid;
@@ -2455,6 +2462,20 @@ h3 {
 
 .experience-media-analysis figure {
   aspect-ratio: 835 / 589;
+}
+
+.experience-media-validation .validation-test-photo {
+  grid-column: 1 / -1;
+  aspect-ratio: 2.4 / 1;
+}
+
+.experience-media-validation .validation-test-photo img {
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+.experience-media-validation .validation-chart {
+  aspect-ratio: 1.6 / 1;
 }
 
 .experience-media-collage .experience-collage-primary {
@@ -2535,7 +2556,7 @@ h3 {
     grid-column: span 2;
   }
 
-  .experience-card-anchorage {
+  .experience-card-validation {
     grid-column: span 2;
   }
 
@@ -2593,7 +2614,7 @@ h3 {
     grid-column: auto;
   }
 
-  .experience-card-anchorage {
+  .experience-card-validation {
     grid-column: auto;
   }
 
@@ -2612,6 +2633,17 @@ h3 {
   .experience-media-analysis {
     width: calc(100% - 24px);
     margin-top: 12px;
+  }
+
+  .experience-media-validation {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100% - 24px);
+    margin-top: 12px;
+  }
+
+  .experience-media-validation .validation-test-photo {
+    grid-column: auto;
+    aspect-ratio: 4 / 3;
   }
 
   .experience-media-collage figure {
