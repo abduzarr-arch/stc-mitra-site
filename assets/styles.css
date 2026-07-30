@@ -2053,6 +2053,70 @@ h3 {
 }
 
 /* International portfolio update */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.technical-poster-hero {
+  padding: clamp(28px, 4vw, 54px) clamp(18px, 4vw, 64px) clamp(36px, 5vw, 66px);
+  background:
+    linear-gradient(118deg, rgba(239, 244, 246, 0.99), rgba(255, 255, 255, 0.9) 52%, rgba(209, 223, 227, 0.72)),
+    radial-gradient(circle at 12% 16%, rgba(210, 91, 42, 0.1), transparent 28%);
+}
+
+.technical-poster-frame,
+.technical-poster-summary,
+.technical-poster-hero .hero-proof {
+  width: min(100%, 1320px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.technical-poster-frame {
+  overflow: hidden;
+  border: 1px solid rgba(23, 35, 44, 0.18);
+  background: var(--deep);
+  box-shadow: var(--shadow);
+}
+
+.technical-poster-frame img {
+  width: 100%;
+  aspect-ratio: 1732 / 910;
+  object-fit: cover;
+}
+
+.technical-poster-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: end;
+  padding: 24px 0 2px;
+}
+
+.technical-poster-summary p:last-child {
+  max-width: 930px;
+  margin: 0;
+  color: #394653;
+  font-size: 17px;
+}
+
+.technical-poster-summary .hero-actions {
+  flex-wrap: nowrap;
+  margin: 0;
+}
+
+.technical-poster-hero .hero-proof {
+  margin-top: 24px;
+}
+
 .international-hero .hero-visual {
   align-self: start;
   display: grid;
@@ -2303,6 +2367,14 @@ h3 {
 }
 
 @media (max-width: 1060px) {
+  .technical-poster-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .technical-poster-summary .hero-actions {
+    flex-wrap: wrap;
+  }
+
   .analysis-grid {
     grid-template-columns: 1fr;
   }
@@ -2329,6 +2401,18 @@ h3 {
 }
 
 @media (max-width: 720px) {
+  .technical-poster-hero {
+    padding-top: 18px;
+  }
+
+  .technical-poster-summary {
+    padding-top: 20px;
+  }
+
+  .technical-poster-summary p:last-child {
+    font-size: 15px;
+  }
+
   .international-hero .hero-visual img {
     aspect-ratio: 16 / 11;
     object-position: 68% center;
