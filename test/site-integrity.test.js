@@ -130,7 +130,9 @@ test("homepage exposes exactly eight selected projects and full portfolio remain
   const homepage = await readFile(path.join(root, "index.html"), "utf8");
   const projects = await readFile(path.join(root, "projects.html"), "utf8");
 
-  assert.equal((homepage.match(/<article class=["'][^"']*\bexperience-card-preview\b[^"']*["']/gi) || []).length, 8);
+  const selectedProjects =
+    homepage.split('<div class="experience-gallery experience-gallery-featured">')[1]?.split('<div class="projects-actions">')[0] || "";
+  assert.equal((selectedProjects.match(/<article\b/gi) || []).length, 8);
   assert.equal((projects.match(/\bdata-project-category=["'][^"']+["']/gi) || []).length, 19);
   assert.equal((projects.match(/\bdata-project-filter=["'][^"']+["']/gi) || []).length, 8);
   assert.doesNotMatch(projects, /<article[^>]+\bdata-project-category=[^>]+\bhidden\b/i);
