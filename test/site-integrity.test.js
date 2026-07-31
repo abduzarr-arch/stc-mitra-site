@@ -126,17 +126,16 @@ test("lazy-loaded project images declare intrinsic dimensions", async () => {
   assert.deepEqual(missing, []);
 });
 
-test("homepage exposes exactly eight selected projects and full portfolio remains filterable without JavaScript", async () => {
+test("homepage exposes the full project composition and portfolio remains filterable without JavaScript", async () => {
   const homepage = await readFile(path.join(root, "index.html"), "utf8");
   const projects = await readFile(path.join(root, "projects.html"), "utf8");
 
-  const selectedProjects =
-    homepage.split('<div class="experience-gallery experience-gallery-featured">')[1]?.split('<div class="projects-actions">')[0] || "";
-  assert.equal((selectedProjects.match(/<article\b/gi) || []).length, 8);
+  const homepageProjects =
+    homepage.split('<div class="experience-gallery">')[1]?.split('<section class="section dark technical-core-section"')[0] || "";
+  assert.equal((homepageProjects.match(/<article\b/gi) || []).length, 19);
   assert.equal((projects.match(/\bdata-project-category=["'][^"']+["']/gi) || []).length, 19);
   assert.equal((projects.match(/\bdata-project-filter=["'][^"']+["']/gi) || []).length, 8);
   assert.doesNotMatch(projects, /<article[^>]+\bdata-project-category=[^>]+\bhidden\b/i);
-  assert.match(homepage, /href=["']projects\.html["'][^>]*>View all projects</i);
 });
 
 test("public pages provide a skip link and main target", async () => {
