@@ -2517,6 +2517,10 @@ h3 {
   grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr);
 }
 
+.experience-media-sports-review {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .experience-media-minaret {
   grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
   max-width: 900px;
@@ -2620,6 +2624,14 @@ h3 {
 .experience-media-tower .tower-fire {
   align-self: center;
   aspect-ratio: 2 / 1;
+}
+
+.experience-media-sports-review figure:first-child {
+  aspect-ratio: 1116 / 636;
+}
+
+.experience-media-sports-review figure:last-child {
+  aspect-ratio: 913 / 636;
 }
 
 .experience-media-minaret .minaret-photo {
