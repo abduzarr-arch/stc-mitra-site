@@ -3427,3 +3427,94 @@ h3 {
     min-height: 170px;
   }
 }
+
+/* Preserve the full engineering image instead of cropping it into a fixed mosaic. */
+.project-preview-media {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: none;
+  height: auto;
+  overflow: visible;
+  align-items: start;
+}
+
+.project-preview-media figure,
+.project-preview-media figure:first-child,
+.project-preview-media.media-1 figure:first-child,
+.project-preview-media.media-2 figure:nth-child(2),
+.project-preview-media.media-3 figure:nth-child(2),
+.project-preview-media.media-3 figure:nth-child(3),
+.project-preview-media.media-4 figure:nth-child(2),
+.project-preview-media.media-4 figure:nth-child(3),
+.project-preview-media.media-4 figure:nth-child(4) {
+  grid-row: auto;
+}
+
+.project-preview-media figure {
+  align-self: stretch;
+  min-height: 0;
+  overflow: visible;
+}
+
+.project-preview-media img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.project-preview-media.media-1 figure {
+  grid-column: 1 / -1;
+}
+
+.project-preview-media.media-2 figure {
+  grid-column: span 3;
+}
+
+.project-preview-media.media-3 figure:first-child,
+.project-preview-media.media-4 figure:first-child {
+  grid-column: 1 / -1;
+}
+
+.project-preview-media.media-3 figure:nth-child(n + 2) {
+  grid-column: span 3;
+}
+
+.project-preview-media.media-4 figure:nth-child(2),
+.project-preview-media.media-4 figure:nth-child(3) {
+  grid-column: span 3;
+}
+
+.project-preview-media.media-4 figure:nth-child(4) {
+  grid-column: 1 / -1;
+}
+
+.project-preview-media .tower-structure img,
+.project-preview-media .minaret-photo img {
+  width: auto;
+  max-width: 100%;
+  max-height: 520px;
+  margin-inline: auto;
+}
+
+@media (max-width: 767px) {
+  .project-preview-media {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+
+  .project-preview-media figure,
+  .project-preview-media.media-1 figure,
+  .project-preview-media.media-2 figure,
+  .project-preview-media.media-3 figure:first-child,
+  .project-preview-media.media-3 figure:nth-child(n + 2),
+  .project-preview-media.media-4 figure:first-child,
+  .project-preview-media.media-4 figure:nth-child(n + 2) {
+    grid-column: 1;
+  }
+
+  .project-preview-media .tower-structure img,
+  .project-preview-media .minaret-photo img {
+    max-height: 440px;
+  }
+}
