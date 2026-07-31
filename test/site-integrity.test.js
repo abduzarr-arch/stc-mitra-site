@@ -79,7 +79,7 @@ test("local fragment links point to existing section ids", async () => {
 
 test("all pages expose consistent navigation and complete social metadata", async () => {
   const problems = [];
-  const requiredLabels = ["Projects", "Specialisms", "Services", "Track record", "Site issues", "Contact"];
+  const requiredLabels = ["Projects", "Specialisms", "Services", "Track record", "Construction support", "Contact"];
   const requiredHeadPatterns = [
     /<title>[^<]+<\/title>/i,
     /<meta name=["']description["'] content=["'][^"']+["']>/i,
