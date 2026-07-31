@@ -2401,6 +2401,10 @@ h3 {
   grid-column: span 2;
 }
 
+.experience-card-thermal {
+  grid-column: span 2;
+}
+
 .experience-card-pavlova .experience-copy {
   padding: 18px;
 }
@@ -2456,6 +2460,13 @@ h3 {
   border: 1px solid var(--line);
 }
 
+.experience-media-thermal {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(calc(100% - 36px), 1120px);
+  margin: 18px auto 0;
+  border: 1px solid var(--line);
+}
+
 .experience-media figure {
   position: relative;
   display: grid;
@@ -2503,6 +2514,15 @@ h3 {
 
 .experience-media-museum .museum-exterior-sculpture img {
   object-position: center 42%;
+}
+
+.experience-media-thermal figure {
+  aspect-ratio: 4 / 3;
+}
+
+.experience-media-thermal .thermal-model-overview img {
+  width: 112%;
+  height: 112%;
 }
 
 .experience-media-collage .experience-collage-primary {
@@ -2591,6 +2611,10 @@ h3 {
     grid-column: span 2;
   }
 
+  .experience-card-thermal {
+    grid-column: span 2;
+  }
+
   .experience-media-collage {
     min-height: 210px;
   }
@@ -2653,6 +2677,10 @@ h3 {
     grid-column: auto;
   }
 
+  .experience-card-thermal {
+    grid-column: auto;
+  }
+
   .experience-card-pavlova .experience-copy {
     padding: 20px;
   }
@@ -2689,6 +2717,12 @@ h3 {
 
   .experience-media-museum figure {
     aspect-ratio: 4 / 3;
+  }
+
+  .experience-media-thermal {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100% - 24px);
+    margin-top: 12px;
   }
 
   .experience-media-collage figure {
