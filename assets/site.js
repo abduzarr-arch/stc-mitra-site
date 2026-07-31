@@ -113,3 +113,38 @@ if (requestForm) {
     }
   });
 }
+
+const projectCatalog = document.querySelector("[data-project-catalog]");
+const projectFilterButtons = [...document.querySelectorAll("[data-project-filter]")];
+const projectFilterStatus = document.querySelector("[data-project-filter-status]");
+
+if (projectCatalog && projectFilterButtons.length) {
+  const projectRecords = [...projectCatalog.querySelectorAll("[data-project-category]")];
+
+  const applyProjectFilter = (selectedFilter) => {
+    let visibleCount = 0;
+
+    for (const record of projectRecords) {
+      const categories = record.dataset.projectCategory?.split(/\s+/).filter(Boolean) || [];
+      const isVisible = selectedFilter === "all" || categories.includes(selectedFilter);
+      record.hidden = !isVisible;
+      if (isVisible) visibleCount += 1;
+    }
+
+    for (const button of projectFilterButtons) {
+      button.setAttribute("aria-pressed", String(button.dataset.projectFilter === selectedFilter));
+    }
+
+    if (projectFilterStatus) {
+      const activeButton = projectFilterButtons.find((button) => button.dataset.projectFilter === selectedFilter);
+      const label = activeButton?.textContent?.trim() || "selected category";
+      projectFilterStatus.textContent = selectedFilter === "all"
+        ? `Showing all ${visibleCount} projects.`
+        : `Showing ${visibleCount} ${label.toLowerCase()} projects.`;
+    }
+  };
+
+  for (const button of projectFilterButtons) {
+    button.addEventListener("click", () => applyProjectFilter(button.dataset.projectFilter || "all"));
+  }
+}

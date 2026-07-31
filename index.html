@@ -21,13 +21,14 @@
     <link rel="stylesheet" href="assets/styles.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="site-header">
       <a class="brand" href="#top" aria-label="STC Mitra home">
         <span class="brand-mark">M</span>
         <span><strong>STC Mitra</strong><small>Structural engineering</small></span>
       </a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="#projects">Experience</a>
+        <a href="projects.html">Projects</a>
         <a href="#specialisms">Specialisms</a>
         <a href="#services">Services</a>
         <a href="#track-record">Track record</a>
@@ -39,10 +40,14 @@
         <a class="header-phone" href="tel:+998920438307">+998 92 043 83 07</a>
       </div>
     </header>
+    <div class="mobile-contact-strip" aria-label="Contact details">
+      <a href="mailto:info@stc-mitra.com">info@stc-mitra.com</a>
+      <a href="tel:+998920438307">+998 92 043 83 07</a>
+    </div>
 
-    <main id="top">
+    <main id="main-content">
       <section class="hero hero-v2 international-hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
+        <div class="hero-copy" id="top">
           <p class="eyebrow">Structural calculation and design</p>
           <h1 id="hero-title">Advanced structural analysis and design</h1>
           <p class="lead">Global and local finite-element models, structural verification, strengthening solutions and working documentation for reinforced-concrete and steel structures.</p>
@@ -50,17 +55,20 @@
             <a class="button primary" href="#contacts">Send a calculation task</a>
             <a class="button ghost" href="#projects">Review completed work</a>
           </div>
-          <div class="hero-proof" aria-label="Key company facts">
-            <div><strong>1,700+</strong><span>construction defects and non-standard structural issues assessed</span></div>
-            <div><strong>67</strong><span>contracted work packages, January 2025&ndash;June 2026</span></div>
-            <div><strong>ACI &middot; EN &middot; SP</strong><span>basis of design agreed before model and report preparation</span></div>
-          </div>
         </div>
         <div class="hero-visual hero-visual-v2">
           <picture>
-            <source srcset="assets/hero-engineering-premium.webp" type="image/webp">
+            <source
+              srcset="assets/hero-engineering-premium-840.webp 840w, assets/hero-engineering-premium-1280.webp 1280w, assets/hero-engineering-premium.webp 1672w"
+              sizes="(max-width: 767px) calc(100vw - 36px), (max-width: 1060px) 760px, 46vw"
+              type="image/webp">
             <img src="assets/hero-engineering-premium.png" width="1672" height="941" alt="Reinforced-concrete frame shown with a finite-element model and stress contours" fetchpriority="high" decoding="async">
           </picture>
+        </div>
+        <div class="hero-proof" aria-label="Key company facts">
+          <div><strong>1,700+</strong><span>construction defects and non-standard structural issues assessed</span></div>
+          <div><strong>67</strong><span>contracted work packages, January 2025&ndash;June 2026</span></div>
+          <div><strong>ACI &middot; EN &middot; SP</strong><span>basis of design agreed before model and report preparation</span></div>
         </div>
       </section>
 
@@ -71,163 +79,81 @@
       <section class="section experience-gallery-section" id="projects">
         <div class="section-head section-head-wide">
           <p class="eyebrow">Selected assignments</p>
-          <h2>Structure, calculation model and issued scope</h2>
-          <p>The images are taken from the consolidated project presentation. The descriptions state the calculation or design work performed for each structure.</p>
+          <h2>Selected structural engineering assignments</h2>
+          <p>Eight assignments selected for their calculation scope, model complexity and verification requirements. The full portfolio retains the complete project evidence and additional images.</p>
         </div>
-        <div class="experience-gallery">
-          <article class="experience-card experience-card-featured">
-            <div class="experience-media experience-media-featured">
+        <div class="experience-gallery experience-gallery-featured">
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-2">
               <figure><img src="assets/experience/spartak-building.jpg" width="1083" height="491" alt="Spartak hotel complex" loading="lazy" decoding="async"><figcaption>Completed building</figcaption></figure>
               <figure><img src="assets/experience/spartak-model.jpg" width="643" height="345" alt="Structural calculation model of the Spartak hotel complex" loading="lazy" decoding="async"><figcaption>Calculation model</figcaption></figure>
             </div>
-            <div class="experience-copy"><span>Nonlinear verification &middot; strengthening</span><h3>Spartak hotel complex</h3><p>Nonlinear verification of the reinforced-concrete frame and steel beams. Strengthening was developed for slabs, the raft foundation and vertical elements; the calculations were supported during construction.</p></div>
+            <div class="experience-copy"><span>Nonlinear verification &middot; strengthening</span><h3>Spartak hotel complex</h3><p>Nonlinear verification of the reinforced-concrete frame and steel beams, with cracking and stiffness redistribution included in the assessment. Strengthening was developed for slabs, the raft foundation and vertical elements, and the calculation decisions were followed through construction.</p><a class="project-detail-link" href="projects.html#spartak">View project details</a></div>
           </article>
-          <article class="experience-card">
-            <div class="experience-media">
-              <figure><img src="assets/experience/campus-photo.jpg" width="733" height="407" alt="Campus project in Ust-Labinsk" loading="lazy" decoding="async"><figcaption>Project view</figcaption></figure>
-              <figure><img src="assets/experience/campus-model.jpg" width="582" height="320" alt="Structural calculation model of the Ust-Labinsk campus" loading="lazy" decoding="async"><figcaption>Calculation model</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Design &middot; author supervision</span><h3>Campus, Ust-Labinsk</h3><p>Calculation model, design documentation and working documentation. Site queries were handled during author supervision.</p></div>
-          </article>
-          <article class="experience-card">
-            <div class="experience-media">
-              <figure><img src="assets/experience/nizhny-photo.jpg" width="733" height="407" alt="Residential development in Nizhny Novgorod" loading="lazy" decoding="async"><figcaption>Project view</figcaption></figure>
-              <figure><img src="assets/experience/nizhny-model.jpg" width="546" height="320" alt="Structural calculation model of a residential development in Nizhny Novgorod" loading="lazy" decoding="async"><figcaption>Calculation model</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Structural concept &middot; global model</span><h3>Residential development, Nizhny Novgorod</h3><p>Selection of the structural scheme and preparation of global models for several residential buildings.</p></div>
-          </article>
-          <article class="experience-card">
-            <div class="experience-media">
-              <figure><img src="assets/experience/moscow-photo.jpg" width="733" height="407" alt="Khersonskaya 10 residential high-rise project in Moscow" loading="lazy" decoding="async"><figcaption>Project view</figcaption></figure>
-              <figure><img src="assets/experience/moscow-model.jpg" width="418" height="320" alt="Structural calculation model of Khersonskaya 10" loading="lazy" decoding="async"><figcaption>Calculation model</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>RC design &middot; working documentation</span><h3>Khersonskaya 10, Moscow</h3><p>Design and working documentation for reinforced-concrete high-rise buildings and a shared podium parking structure.</p></div>
-          </article>
-          <article class="experience-card">
-            <div class="experience-media">
-              <figure><img src="assets/experience/school-roof.jpg" width="641" height="341" alt="Global calculation model of a school steel roof" loading="lazy" decoding="async"><figcaption>Global model</figcaption></figure>
-              <figure><img src="assets/experience/school-node.jpg" width="477" height="312" alt="Local finite-element model of a steel roof connection" loading="lazy" decoding="async"><figcaption>Local connection</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Global-to-local FE &middot; strengthening</span><h3>School steel roof</h3><p>Global verification of the trusses, local finite-element models of the connections and strengthening details.</p></div>
-          </article>
-          <article class="experience-card experience-card-pavlova">
-            <div class="experience-media experience-media-collage">
-              <figure class="experience-collage-primary"><img src="assets/experience/akademika-pavlova-hs-model.webp" width="990" height="746" alt="Three-dimensional soil-structure interaction model for 40 Akademika Pavlova" loading="lazy" decoding="async"><figcaption>Soil–structure model</figcaption></figure>
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-3">
+              <figure class="experience-collage-primary"><img src="assets/experience/akademika-pavlova-hs-model-optimized.webp" width="990" height="746" alt="Three-dimensional soil-structure interaction model for 40 Akademika Pavlova" loading="lazy" decoding="async"><figcaption>Soil–structure model</figcaption></figure>
               <figure><img src="assets/experience/akademika-pavlova-settlement.webp" width="883" height="397" alt="Calculated settlement field for the foundation at 40 Akademika Pavlova" loading="lazy" decoding="async"><figcaption>Settlement field</figcaption></figure>
               <figure><img src="assets/experience/akademika-pavlova-staging.webp" width="781" height="398" alt="Loading and unloading stage scheme for tilt stabilisation" loading="lazy" decoding="async"><figcaption>Stage scheme</figcaption></figure>
             </div>
-            <div class="experience-copy"><span>Staged tilt stabilisation &middot; HS soil model</span><h3>40 Akademika Pavlova</h3><p>Assessment of a staged scheme for stabilising building tilt. A nonlinear soil&ndash;structure interaction model with the Hardening Soil (HS) constitutive law reproduced the specified loading and unloading sequence and tracked differential settlements and tilt at each stage.</p></div>
+            <div class="experience-copy"><span>Staged tilt stabilisation &middot; HS soil model</span><h3>40 Akademika Pavlova</h3><p>A staged scheme for stabilising building tilt was assessed in a nonlinear soil&ndash;structure interaction model. The Hardening Soil constitutive law reproduced the specified loading and unloading sequence; differential settlement and tilt were checked after every construction stage.</p><a class="project-detail-link" href="projects.html#pavlova">View project details</a></div>
           </article>
-          <article class="experience-card">
-            <div class="experience-media">
-              <figure><img src="assets/experience/canopy-building.jpg" width="1172" height="359" alt="Entrance canopy of the Primorskaya hotel" loading="lazy" decoding="async"><figcaption>Architectural context</figcaption></figure>
-              <figure><img src="assets/experience/canopy-node.jpg" width="441" height="312" alt="Local stress model of the Primorskaya hotel canopy connection" loading="lazy" decoding="async"><figcaption>Local connection</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Local nonlinearity &middot; connection mechanics</span><h3>Primorskaya hotel canopy</h3><p>Global member verification and a local nonlinear model of the steel connection. Stress and deformation fields were considered together with component checks.</p></div>
-          </article>
-          <article class="experience-card experience-card-anchorage">
-            <div class="experience-media experience-media-analysis">
-              <figure><img src="assets/experience/plastic-hinge-anchorage.png" width="835" height="589" alt="Nonlinear finite-element model used to verify reinforcement anchorage in a plastic-hinge region" loading="lazy" decoding="async"><figcaption>Nonlinear RC model</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Nonlinear RC FE &middot; anchorage verification</span><h3>Anchorage within a plastic-hinge region</h3><p>Project-specific verification of reinforcement anchorage where the available embedment did not satisfy the prescriptive development-length provisions. A local nonlinear reinforced-concrete model was used to trace force transfer through the joint, cracking, reactions and deformations over the loading history and to substantiate the adopted anchorage solution.</p></div>
-          </article>
-          <article class="experience-card experience-card-validation">
-            <div class="experience-media experience-media-validation">
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-4">
               <figure class="validation-test-photo"><img src="assets/experience/load-test-site.jpg" width="1041" height="734" alt="Full-scale floor slab load test using water-filled containers" loading="lazy" decoding="async"><figcaption>Full-scale load test</figcaption></figure>
               <figure class="validation-chart"><img src="assets/experience/load-test-section-2.png" width="465" height="292" alt="Predicted and measured floor slab deflections in control section 2" loading="lazy" decoding="async"><figcaption>Control section 2</figcaption></figure>
               <figure class="validation-chart"><img src="assets/experience/load-test-section-3.png" width="483" height="303" alt="Predicted and measured floor slab deflections in control section 3" loading="lazy" decoding="async"><figcaption>Control section 3</figcaption></figure>
               <figure class="validation-chart"><img src="assets/experience/load-test-section-4.png" width="836" height="520" alt="Predicted and measured floor slab deflections in control section 4" loading="lazy" decoding="async"><figcaption>Control section 4</figcaption></figure>
             </div>
-            <div class="experience-copy"><span>Pre-test forecast &middot; load testing &middot; model verification</span><h3>Prediction and full-scale verification of slab deflections</h3><p>Pre-test deflection forecasts were prepared for the specified load programme. During full-scale loading, measured load&ndash;deflection histories from three slab sections were compared with the predicted response. The correlation was used to verify the model stiffness and the assessment basis for the tested structure.</p></div>
+            <div class="experience-copy"><span>Pre-test forecast &middot; load testing &middot; model verification</span><h3>Prediction and full-scale verification of slab deflections</h3><p>Deflection forecasts were issued before the prescribed full-scale load test. Measured load&ndash;deflection histories from three slab sections were then compared with the predicted response, providing a direct check of model stiffness and of the assessment basis adopted for the tested structure.</p><a class="project-detail-link" href="projects.html#load-testing">View project details</a></div>
           </article>
-          <article class="experience-card experience-card-museum">
-            <div class="experience-media experience-media-museum">
-              <figure class="museum-exterior"><img src="assets/experience/museum-exterior-main.jpg" width="657" height="634" alt="Architectural view of the museum storage facility" loading="lazy" decoding="async"><figcaption>Architectural view</figcaption></figure>
-              <figure class="museum-model"><img src="assets/experience/museum-structural-model.jpg" width="747" height="630" alt="Global finite-element model of the museum storage facility and its large reinforced-concrete cantilever" loading="lazy" decoding="async"><figcaption>Global RC model</figcaption></figure>
-              <figure class="museum-exterior museum-exterior-sculpture"><img src="assets/experience/museum-exterior-sculpture.jpg" width="492" height="634" alt="Museum storage facility viewed from the public plaza" loading="lazy" decoding="async"><figcaption>Public-space elevation</figcaption></figure>
-              <figure class="museum-cantilever"><img src="assets/experience/museum-cantilever-elevation.jpg" width="1441" height="528" alt="Finite-element elevation showing the large reinforced-concrete cantilever of the museum storage facility" loading="lazy" decoding="async"><figcaption>Cantilever elevation</figcaption></figure>
-              <figure class="museum-deflection"><img src="assets/experience/museum-deflection-curve.jpg" width="903" height="500" alt="Load-deflection curves for the reinforced-concrete cantilever" loading="lazy" decoding="async"><figcaption>Load–deflection response</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Global RC analysis &middot; large cantilever</span><h3>Museum storage facility</h3><p>The global reinforced-concrete model resolved the load path of the large fa&ccedil;ade cantilever, including vertical deflection, cracking-sensitive stiffness and force transfer into the back-span walls and supporting frame. The calculated deflection curve was compared with the response recorded during loading.</p></div>
-          </article>
-          <article class="experience-card">
-            <div class="experience-media experience-media-single">
-              <figure><img src="assets/experience/desenovsky-global-model.jpg" width="1432" height="818" alt="Global finite-element model of the large Desenovsky residential development" loading="lazy" decoding="async"><figcaption>Complex-wide model</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Multi-building FE model &middot; shared podium</span><h3>Desenovsky residential development</h3><p>A complex-wide model combined the residential towers, lower-rise blocks and shared podium and foundation structure. It captured stiffness interaction between the buildings, redistribution through the common substructure and the design actions and displacements for each block.</p></div>
-          </article>
-          <article class="experience-card experience-card-thermal">
-            <div class="experience-media experience-media-thermal">
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-4">
               <figure class="thermal-model-overview"><img src="assets/experience/hydration-surface-temperature.png" width="521" height="378" alt="Transient thermal finite-element model showing the surface temperature of a concrete specimen during hydration" loading="lazy" decoding="async"><figcaption>Surface temperature field</figcaption></figure>
               <figure><img src="assets/experience/hydration-core-temperature.jpg" width="709" height="592" alt="Thermal finite-element model showing the temperature gradient through a hydrating concrete specimen" loading="lazy" decoding="async"><figcaption>Core temperature field</figcaption></figure>
               <figure><img src="assets/experience/hydration-test-history.jpg" width="615" height="550" alt="Measured core, surface and ambient temperatures during the concrete hydration test" loading="lazy" decoding="async"><figcaption>Measured temperature history</figcaption></figure>
               <figure><img src="assets/experience/hydration-test-correlation.png" width="516" height="378" alt="Comparison of calculated and measured concrete temperatures during hydration" loading="lazy" decoding="async"><figcaption>Calculation vs test</figcaption></figure>
             </div>
-            <div class="experience-copy"><span>Hydration heat &middot; transient thermal FE &middot; test correlation</span><h3>Hydration-heat model verification for early-age concrete</h3><p>Heat-generation kinetics and boundary heat-transfer parameters were verified against the measured temperature history of a concrete specimen. The calibrated transient model was then used to predict temperature and maturity-dependent strength development and to establish permissible early loading and formwork-stripping times, including under low ambient temperatures.</p></div>
+            <div class="experience-copy"><span>Hydration heat &middot; transient thermal FE &middot; test correlation</span><h3>Hydration-heat model verification for early-age concrete</h3><p>Heat-generation kinetics and boundary heat-transfer parameters were calibrated against the measured temperature history of a concrete specimen. The verified transient model was used to assess temperature and strength development for early loading and formwork-stripping decisions, including at low ambient temperature.</p><a class="project-detail-link" href="projects.html#hydration">View project details</a></div>
           </article>
-          <article class="experience-card experience-card-sakhalin">
-            <div class="experience-media experience-media-sakhalin">
-              <figure class="sakhalin-model"><img src="assets/experience/sakhalin-global-model.jpg" width="1858" height="933" alt="Global seismic finite-element model of a residential complex in Yuzhno-Sakhalinsk" loading="lazy" decoding="async"><figcaption>Global seismic model</figcaption></figure>
-              <figure class="sakhalin-render"><img src="assets/experience/sakhalin-aerial-view.jpg" width="1013" height="843" alt="Architectural view of the residential complex in Yuzhno-Sakhalinsk" loading="lazy" decoding="async"><figcaption>Project view</figcaption></figure>
-              <figure class="sakhalin-section"><img src="assets/experience/sakhalin-section.jpg" width="2419" height="960" alt="Longitudinal section showing residential blocks over a common parking and podium structure" loading="lazy" decoding="async"><figcaption>Transfer level and parking</figcaption></figure>
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-2">
+              <figure class="tower-structure"><img src="assets/experience/pechatniki-tower.png" width="347" height="775" alt="Global finite-element model of the 69-storey residential tower in Pechatniki" loading="lazy" decoding="async"><figcaption>69-storey global model</figcaption></figure>
+              <figure class="tower-fire"><img src="assets/experience/pechatniki-fire-temperature.png" width="1397" height="642" alt="Transient temperature field through the tower floor slab under the design fire" loading="lazy" decoding="async"><figcaption>Design-fire temperature field</figcaption></figure>
             </div>
-            <div class="experience-copy"><span>Seismic design &middot; transfer slab &middot; vertical irregularity</span><h3>Residential complex, Yuzhno-Sakhalinsk</h3><p>Global seismic analysis of three residential blocks over a common parking and podium structure. The transfer slab resolves non-aligned vertical elements between the towers and parking levels. Storey stiffness, drift and force redistribution at the transfer level were checked explicitly to exclude a soft-storey mechanism.</p></div>
+            <div class="experience-copy"><span>High-rise optimisation &middot; dynamics &middot; fire</span><h3>69-storey residential tower, Pechatniki</h3><p>Wall-thickness optimisation above Level 51 was checked against global stiffness, dynamic response and comfort. Vertical reinforcement, fa&ccedil;ade beams and sensitive transfer zones were reviewed, while slab thickness under the design fire was verified by transient heat-transfer analysis.</p><a class="project-detail-link" href="projects.html#pechatniki">View project details</a></div>
           </article>
-          <article class="experience-card experience-card-industrial">
-            <div class="experience-media experience-media-industrial">
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-2">
+              <figure class="minaret-photo"><img src="assets/experience/kalyan-minaret-photo.jpg" width="258" height="430" alt="Historic Kalyan Minaret in Bukhara" loading="lazy" decoding="async"><figcaption>Existing monument</figcaption></figure>
+              <figure class="minaret-mode"><img src="assets/experience/kalyan-minaret-mode.png" width="856" height="482" alt="Calculated modal shape of the historic masonry Kalyan Minaret" loading="lazy" decoding="async"><figcaption>Modal model</figcaption></figure>
+            </div>
+            <div class="experience-copy"><span>Historic masonry &middot; modal analysis &middot; calibration</span><h3>Kalyan Minaret, Bukhara</h3><p>Material-property ranges for historic masonry were assembled for the global model, including density, elastic modulus, strength, cohesion and friction. The calculated modal response, with a first natural frequency of approximately 1.21 Hz, provides a reference for calibration against field measurements.</p><a class="project-detail-link" href="projects.html#kalyan-minaret">View project details</a></div>
+          </article>
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-4">
               <figure><img src="assets/experience/industrial-process-frame.jpg" width="985" height="524" alt="Global finite-element model of an industrial process frame" loading="lazy" decoding="async"><figcaption>Industrial process frame</figcaption></figure>
               <figure><img src="assets/experience/industrial-pile-supported-facility.jpg" width="880" height="524" alt="Finite-element model of a pile-supported industrial facility" loading="lazy" decoding="async"><figcaption>Pile-supported facility</figcaption></figure>
               <figure><img src="assets/experience/industrial-process-building.jpg" width="985" height="476" alt="Global structural model of a multi-level process building" loading="lazy" decoding="async"><figcaption>Process building model</figcaption></figure>
               <figure><img src="assets/experience/industrial-equipment-frame.jpg" width="600" height="476" alt="Steel frame supporting industrial equipment and floor systems" loading="lazy" decoding="async"><figcaption>Equipment-supporting frame</figcaption></figure>
-              <figure><img src="assets/experience/industrial-long-span-hall.jpg" width="848" height="513" alt="Structural model of a long-span industrial hall" loading="lazy" decoding="async"><figcaption>Long-span industrial hall</figcaption></figure>
-              <figure><img src="assets/experience/industrial-production-building.jpg" width="848" height="480" alt="Steel structural model of a production building" loading="lazy" decoding="async"><figcaption>Production building</figcaption></figure>
-              <figure><img src="assets/experience/industrial-multistorey-frame.jpg" width="900" height="1006" alt="Multi-storey equipment-supporting steel frame" loading="lazy" decoding="async"><figcaption>Multi-storey steel frame</figcaption></figure>
-              <figure><img src="assets/experience/special-lattice-tower.jpg" width="477" height="982" alt="Structural model of a 68 metre lattice tower" loading="lazy" decoding="async"><figcaption>68 m lattice tower</figcaption></figure>
-              <figure><img src="assets/experience/special-circular-structures.jpg" width="949" height="542" alt="Finite-element model of paired circular process structures" loading="lazy" decoding="async"><figcaption>Circular process structures</figcaption></figure>
-              <figure><img src="assets/experience/special-elevated-truss.jpg" width="478" height="542" alt="Structural model of an elevated truss structure" loading="lazy" decoding="async"><figcaption>Elevated truss structure</figcaption></figure>
-              <figure><img src="assets/experience/industrial-gallery.jpg" width="563" height="424" alt="Finite-element model of an industrial gallery on independent supports" loading="lazy" decoding="async"><figcaption>Industrial gallery</figcaption></figure>
-              <figure><img src="assets/experience/special-slab-system.jpg" width="746" height="424" alt="Finite-element model of a slab with multiple circular structural zones" loading="lazy" decoding="async"><figcaption>Special slab system</figcaption></figure>
             </div>
-            <div class="experience-copy"><span>Industrial facilities &middot; steel structures &middot; special systems</span><h3>Industrial and special-purpose structures</h3><p>Global models for process buildings, long-span steel frames, galleries, towers, pile-supported platforms and equipment-supporting structures. Structural schemes were checked for spatial stability, load redistribution and support reactions under permanent, operational, wind and equipment actions.</p></div>
+            <div class="experience-copy"><span>Industrial facilities &middot; steel structures &middot; special systems</span><h3>Industrial and special-purpose structures</h3><p>Global models covered process buildings, long-span steel frames, galleries, towers, pile-supported platforms and equipment-supporting structures. Spatial stability, load redistribution and support reactions were checked for permanent, operational, wind and equipment actions.</p><a class="project-detail-link" href="projects.html#industrial">View project details</a></div>
           </article>
-          <article class="experience-card experience-card-source-wide">
-            <div class="experience-media experience-media-project-trio">
-              <figure><img src="assets/experience/sports-hall-global.png" width="1478" height="807" alt="Global finite-element model of a welded steel sports hall roof frame" loading="lazy" decoding="async"><figcaption>Global frame model</figcaption></figure>
-              <figure><img src="assets/experience/sports-hall-buckling-axis-5.png" width="1935" height="1057" alt="First buckling mode of the sports hall roof frame on grid line 5" loading="lazy" decoding="async"><figcaption>Buckling mode · axis 5</figcaption></figure>
-              <figure><img src="assets/experience/sports-hall-buckling-axis-6.png" width="2226" height="1014" alt="First buckling mode of the sports hall roof frame on grid line 6" loading="lazy" decoding="async"><figcaption>Buckling mode · axis 6</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Steel stability &middot; geometric nonlinearity &middot; verification</span><h3>Sports hall steel roof frame</h3><p>Verification of the welded I-section portal frames, purlins and bracing. Linear and geometrically nonlinear analyses were used to check global response, displacements and the first buckling modes of the critical frames.</p></div>
-          </article>
-          <article class="experience-card experience-card-source-compact">
-            <div class="experience-media experience-media-single">
-              <figure><img src="assets/experience/starobittsevskaya-global.png" width="1676" height="949" alt="Global structural model used to design strengthening for the retail building on Starobittsevskaya" loading="lazy" decoding="async"><figcaption>Strengthening model</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Strengthening design &middot; RC slabs and columns</span><h3>Retail building, Starobittsevskaya</h3><p>Strengthening design for the raft foundation, first-floor slab, roof slab and selected columns. Solutions included local thickenings, concrete overlays, capitals, anchorage and concrete shear keys to restore ULS and SLS compliance.</p></div>
-          </article>
-          <article class="experience-card experience-card-source-wide">
-            <div class="experience-media experience-media-local-node">
+          <article class="experience-card experience-card-preview">
+            <div class="project-preview-media media-4">
               <figure><img src="assets/experience/starobittsevskaya-node-loads.png" width="2422" height="1155" alt="Three-dimensional nonlinear finite-element model of the strengthened corner-column joint" loading="lazy" decoding="async"><figcaption>Local model and loading</figcaption></figure>
               <figure><img src="assets/experience/starobittsevskaya-node-materials.png" width="2391" height="1135" alt="Material and contact-zone definition for the strengthened corner-column joint" loading="lazy" decoding="async"><figcaption>Materials and contacts</figcaption></figure>
               <figure><img src="assets/experience/starobittsevskaya-node-reinforcement.png" width="1915" height="672" alt="Detailed reinforcement model of the strengthened corner-column joint" loading="lazy" decoding="async"><figcaption>Reinforcement detail</figcaption></figure>
               <figure><img src="assets/experience/starobittsevskaya-node-stress.png" width="2383" height="977" alt="Stress result from the nonlinear analysis of the strengthened corner-column joint" loading="lazy" decoding="async"><figcaption>Limit-state stress result</figcaption></figure>
             </div>
-            <div class="experience-copy"><span>Nonlinear RC FE &middot; strengthened joint</span><h3>Corner-column strengthening verification</h3><p>A three-dimensional ATENA model resolved materials, contact zones and reinforcement in the strengthened corner-column joint. The analysis traced force transfer between the existing and new components and reinforcement stresses up to the governing limit state.</p></div>
-          </article>
-          <article class="experience-card experience-card-source-compact">
-            <div class="experience-media experience-media-tower">
-              <figure class="tower-structure"><img src="assets/experience/pechatniki-tower.png" width="347" height="775" alt="Global finite-element model of the 69-storey residential tower in Pechatniki" loading="lazy" decoding="async"><figcaption>69-storey global model</figcaption></figure>
-              <figure class="tower-fire"><img src="assets/experience/pechatniki-fire-temperature.png" width="1397" height="642" alt="Transient temperature field through the tower floor slab under the design fire" loading="lazy" decoding="async"><figcaption>Design-fire temperature field</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>High-rise optimisation &middot; dynamics &middot; fire</span><h3>69-storey residential tower, Pechatniki</h3><p>Optimisation of a 69-storey tower over a three-level podium. Reducing wall thickness above Level 51 was checked against stiffness, dynamics and comfort; vertical reinforcement, fa&ccedil;ade beams and sensitive zones were reviewed. Slab thickness was verified for the design fire by transient heat-transfer analysis.</p></div>
-          </article>
-          <article class="experience-card experience-card-minaret">
-            <div class="experience-media experience-media-minaret">
-              <figure class="minaret-photo"><img src="assets/experience/kalyan-minaret-photo.jpg" width="258" height="430" alt="Historic Kalyan Minaret in Bukhara" loading="lazy" decoding="async"><figcaption>Existing monument</figcaption></figure>
-              <figure class="minaret-mode"><img src="assets/experience/kalyan-minaret-mode.png" width="856" height="482" alt="Calculated modal shape of the historic masonry Kalyan Minaret" loading="lazy" decoding="async"><figcaption>Modal model</figcaption></figure>
-            </div>
-            <div class="experience-copy"><span>Historic masonry &middot; modal analysis &middot; calibration</span><h3>Kalyan Minaret, Bukhara</h3><p>Preliminary modal assessment of the historic masonry minaret. Density, elastic modulus, strength, cohesion and friction ranges were assembled for the global model. The first calculated natural frequency was approximately 1.21 Hz, providing a reference for calibration against field measurements.</p></div>
+            <div class="experience-copy"><span>Nonlinear RC FE &middot; strengthened joint</span><h3>Corner-column strengthening verification</h3><p>A three-dimensional nonlinear model resolved the existing and added concrete, reinforcement and contact zones in a strengthened corner-column joint. The analysis traced force transfer between components, interface response and reinforcement stress up to the governing limit state.</p><a class="project-detail-link" href="projects.html#corner-column">View project details</a></div>
           </article>
         </div>
+        <div class="projects-actions"><a class="button ghost" href="projects.html">View all projects</a></div>
+        <aside class="technical-enquiry-cta" aria-labelledby="portfolio-enquiry-title">
+          <div><h3 id="portfolio-enquiry-title">Have a structural model, drawings or a construction issue?</h3><p>Send the available information. We will identify the missing inputs and propose the required calculation or design scope.</p></div>
+          <a class="button primary" href="#contacts">Send a technical enquiry</a>
+        </aside>
       </section>
 
       <section class="section dark technical-core-section" id="specialisms">
@@ -341,6 +267,7 @@
           <p class="eyebrow">Initial technical review</p>
           <h2>Send the calculation model, drawings and a description of the issue</h2>
           <p>We will return a list of missing input data and propose the model scope, governing checks and composition of the calculation or design deliverable.</p>
+          <p>Drawings, calculation models, survey records and photographs can be attached by email to <a class="inline-contact-link" href="mailto:info@stc-mitra.com?subject=Structural%20engineering%20enquiry%20%E2%80%94%20project%20files">info@stc-mitra.com</a>.</p>
           <div class="contact-links"><a href="mailto:info@stc-mitra.com">info@stc-mitra.com</a><a href="tel:+998920438307">+998 92 043 83 07</a></div>
           <p class="contact-person">Abduzarr Zhalnin &middot; Director, STC Mitra &middot; Uzbekistan and international delivery</p>
         </div>
@@ -355,15 +282,15 @@
           </div>
           <div class="form-honeypot" aria-hidden="true"><label><span>Website</span><input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
           <button class="button primary" type="submit">Send technical enquiry</button>
-          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-          <p class="form-note">If the form is unavailable, email <a href="mailto:info@stc-mitra.com">info@stc-mitra.com</a> or call <a href="tel:+998920438307">+998 92 043 83 07</a>.</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+          <p class="form-note">To include drawings, models or photographs, email <a href="mailto:info@stc-mitra.com?subject=Structural%20engineering%20enquiry%20%E2%80%94%20project%20files">info@stc-mitra.com</a>. You can also call <a href="tel:+998920438307">+998 92 043 83 07</a>.</p>
         </form>
       </section>
     </main>
 
     <footer class="footer">
       <p>© 2026 STC Mitra LLC. Structural design, verification and engineering support.</p>
-      <div class="footer-links"><a href="#services">Services</a><a href="#projects">Experience</a><a href="problems.html">Site issues</a><a href="#contacts">Contact</a></div>
+      <div class="footer-links"><a href="#services">Services</a><a href="projects.html">Projects</a><a href="problems.html">Site issues</a><a href="#contacts">Contact</a></div>
     </footer>
 
     <script src="assets/site.js"></script>

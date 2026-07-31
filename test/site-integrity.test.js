@@ -79,7 +79,7 @@ test("local fragment links point to existing section ids", async () => {
 
 test("all pages expose consistent navigation and complete social metadata", async () => {
   const problems = [];
-  const requiredLabels = ["Experience", "Specialisms", "Services", "Track record", "Site issues", "Contact"];
+  const requiredLabels = ["Projects", "Specialisms", "Services", "Track record", "Site issues", "Contact"];
   const requiredHeadPatterns = [
     /<title>[^<]+<\/title>/i,
     /<meta name=["']description["'] content=["'][^"']+["']>/i,
@@ -114,14 +114,41 @@ test("all pages expose consistent navigation and complete social metadata", asyn
 });
 
 test("lazy-loaded project images declare intrinsic dimensions", async () => {
-  const html = await readFile(path.join(root, "index.html"), "utf8");
   const missing = [];
-  for (const match of html.matchAll(/<img\b[^>]*\bloading=["']lazy["'][^>]*>/gi)) {
-    if (!/\bwidth=["']\d+["']/i.test(match[0]) || !/\bheight=["']\d+["']/i.test(match[0])) {
-      missing.push(match[0]);
+  for (const page of ["index.html", "projects.html"]) {
+    const html = await readFile(path.join(root, page), "utf8");
+    for (const match of html.matchAll(/<img\b[^>]*\bloading=["']lazy["'][^>]*>/gi)) {
+      if (!/\bwidth=["']\d+["']/i.test(match[0]) || !/\bheight=["']\d+["']/i.test(match[0])) {
+        missing.push(`${page}: ${match[0]}`);
+      }
     }
   }
   assert.deepEqual(missing, []);
+});
+
+test("homepage exposes exactly eight selected projects and full portfolio remains filterable without JavaScript", async () => {
+  const homepage = await readFile(path.join(root, "index.html"), "utf8");
+  const projects = await readFile(path.join(root, "projects.html"), "utf8");
+
+  assert.equal((homepage.match(/<article class=["'][^"']*\bexperience-card-preview\b[^"']*["']/gi) || []).length, 8);
+  assert.equal((projects.match(/\bdata-project-category=["'][^"']+["']/gi) || []).length, 19);
+  assert.equal((projects.match(/\bdata-project-filter=["'][^"']+["']/gi) || []).length, 8);
+  assert.doesNotMatch(projects, /<article[^>]+\bdata-project-category=[^>]+\bhidden\b/i);
+  assert.match(homepage, /href=["']projects\.html["'][^>]*>View all projects</i);
+});
+
+test("public pages provide a skip link and main target", async () => {
+  const problems = [];
+  for (const file of htmlFiles) {
+    const html = await readFile(file, "utf8");
+    if (!/<a class=["']skip-link["'] href=["']#main-content["']>/i.test(html)) {
+      problems.push(`${path.relative(root, file)}: missing skip link`);
+    }
+    if (!/<main\b[^>]*\bid=["']main-content["']/i.test(html)) {
+      problems.push(`${path.relative(root, file)}: missing main target`);
+    }
+  }
+  assert.deepEqual(problems, []);
 });
 
 test("sitemap contains every indexable HTML page and excludes noindex pages", async () => {
