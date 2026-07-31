@@ -2409,6 +2409,10 @@ h3 {
   align-self: start;
 }
 
+.experience-card-industrial {
+  grid-column: 1 / -1;
+}
+
 .experience-card-pavlova .experience-copy {
   padding: 18px;
 }
@@ -2473,6 +2477,15 @@ h3 {
 
 .experience-media-sakhalin {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.experience-media-industrial {
+  display: block;
+  width: min(calc(100% - 36px), 1440px);
+  margin: 18px auto 0;
+  columns: 4;
+  column-gap: 1px;
+  border: 1px solid var(--line);
 }
 
 .experience-media figure {
@@ -2548,6 +2561,18 @@ h3 {
 .experience-media-sakhalin .sakhalin-section {
   grid-column: 1 / -1;
   aspect-ratio: 2.6 / 1;
+}
+
+.experience-media-industrial figure {
+  display: inline-grid;
+  width: 100%;
+  aspect-ratio: auto;
+  margin: 0 0 1px;
+  break-inside: avoid;
+}
+
+.experience-media-industrial img {
+  height: auto;
 }
 
 .experience-media-collage .experience-collage-primary {
@@ -2640,6 +2665,14 @@ h3 {
     grid-column: span 2;
   }
 
+  .experience-card-industrial {
+    grid-column: span 2;
+  }
+
+  .experience-media-industrial {
+    columns: 3;
+  }
+
   .experience-media-collage {
     min-height: 210px;
   }
@@ -2706,6 +2739,10 @@ h3 {
     grid-column: auto;
   }
 
+  .experience-card-industrial {
+    grid-column: auto;
+  }
+
   .experience-card-pavlova .experience-copy {
     padding: 20px;
   }
@@ -2763,6 +2800,12 @@ h3 {
 
   .experience-media-sakhalin .sakhalin-section {
     grid-column: auto;
+  }
+
+  .experience-media-industrial {
+    width: calc(100% - 24px);
+    margin-top: 12px;
+    columns: 2;
   }
 
   .experience-media-collage figure {
