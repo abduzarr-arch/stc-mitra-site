@@ -2413,6 +2413,15 @@ h3 {
   grid-column: 1 / -1;
 }
 
+.experience-card-source-wide,
+.experience-card-minaret {
+  grid-column: span 2;
+}
+
+.experience-card-source-compact {
+  align-self: start;
+}
+
 .experience-card-pavlova .experience-copy {
   padding: 18px;
 }
@@ -2486,6 +2495,31 @@ h3 {
   columns: 4;
   column-gap: 1px;
   border: 1px solid var(--line);
+}
+
+.experience-media-project-trio,
+.experience-media-local-node,
+.experience-media-minaret {
+  width: min(calc(100% - 36px), 1120px);
+  margin: 18px auto 0;
+  border: 1px solid var(--line);
+}
+
+.experience-media-project-trio {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.experience-media-local-node {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.experience-media-tower {
+  grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr);
+}
+
+.experience-media-minaret {
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  max-width: 900px;
 }
 
 .experience-media figure {
@@ -2573,6 +2607,28 @@ h3 {
 
 .experience-media-industrial img {
   height: auto;
+}
+
+.experience-media-local-node figure {
+  aspect-ratio: 2.4 / 1;
+}
+
+.experience-media-tower .tower-structure {
+  aspect-ratio: 0.448 / 1;
+}
+
+.experience-media-tower .tower-fire {
+  align-self: center;
+  aspect-ratio: 2 / 1;
+}
+
+.experience-media-minaret .minaret-photo {
+  aspect-ratio: 0.6 / 1;
+}
+
+.experience-media-minaret .minaret-mode {
+  align-self: center;
+  aspect-ratio: 16 / 9;
 }
 
 .experience-media-collage .experience-collage-primary {
@@ -2669,6 +2725,11 @@ h3 {
     grid-column: span 2;
   }
 
+  .experience-card-source-wide,
+  .experience-card-minaret {
+    grid-column: span 2;
+  }
+
   .experience-media-industrial {
     columns: 3;
   }
@@ -2743,6 +2804,11 @@ h3 {
     grid-column: auto;
   }
 
+  .experience-card-source-wide,
+  .experience-card-minaret {
+    grid-column: auto;
+  }
+
   .experience-card-pavlova .experience-copy {
     padding: 20px;
   }
@@ -2806,6 +2872,28 @@ h3 {
     width: calc(100% - 24px);
     margin-top: 12px;
     columns: 2;
+  }
+
+  .experience-media-project-trio,
+  .experience-media-local-node,
+  .experience-media-tower,
+  .experience-media-minaret {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100% - 24px);
+    margin-top: 12px;
+  }
+
+  .experience-media-tower .tower-structure {
+    aspect-ratio: 2 / 3;
+  }
+
+  .experience-media-tower .tower-fire,
+  .experience-media-minaret .minaret-mode {
+    aspect-ratio: 16 / 9;
+  }
+
+  .experience-media-minaret .minaret-photo {
+    aspect-ratio: 3 / 4;
   }
 
   .experience-media-collage figure {
