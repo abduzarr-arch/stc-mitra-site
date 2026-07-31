@@ -132,8 +132,8 @@ test("homepage exposes the full project composition and portfolio remains filter
 
   const homepageProjects =
     homepage.split('<div class="experience-gallery">')[1]?.split('<section class="section dark technical-core-section"')[0] || "";
-  assert.equal((homepageProjects.match(/<article\b/gi) || []).length, 20);
-  assert.equal((projects.match(/\bdata-project-category=["'][^"']+["']/gi) || []).length, 20);
+  assert.equal((homepageProjects.match(/<article\b/gi) || []).length, 21);
+  assert.equal((projects.match(/\bdata-project-category=["'][^"']+["']/gi) || []).length, 21);
   assert.equal((projects.match(/\bdata-project-filter=["'][^"']+["']/gi) || []).length, 8);
   assert.doesNotMatch(projects, /<article[^>]+\bdata-project-category=[^>]+\bhidden\b/i);
 });
