@@ -2454,7 +2454,7 @@ h3 {
 }
 
 .experience-media-museum {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   width: min(calc(100% - 36px), 1120px);
   margin: 18px auto 0;
   border: 1px solid var(--line);
@@ -2505,7 +2505,14 @@ h3 {
 }
 
 .experience-media-museum figure {
+  grid-column: span 2;
   aspect-ratio: 1 / 1;
+}
+
+.experience-media-museum .museum-cantilever,
+.experience-media-museum .museum-deflection {
+  grid-column: span 3;
+  aspect-ratio: 2 / 1;
 }
 
 .experience-media-museum .museum-exterior img {
@@ -2716,7 +2723,14 @@ h3 {
   }
 
   .experience-media-museum figure {
+    grid-column: auto;
     aspect-ratio: 4 / 3;
+  }
+
+  .experience-media-museum .museum-cantilever,
+  .experience-media-museum .museum-deflection {
+    grid-column: auto;
+    aspect-ratio: 2 / 1;
   }
 
   .experience-media-thermal {
